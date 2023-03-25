@@ -1,0 +1,114 @@
+<div class="main">
+  <form class="update" (submit)="updateBook(selectedBook)">
+    <div>
+      <label>Id:</label>
+      <input type="number" [(ngModel)]="selectedBook.id" name="id" required />
+    </div>
+    <div>
+      <label>Titolo:</label>
+      <input
+        type="text"
+        [(ngModel)]="selectedBook.title"
+        name="title"
+        required
+      />
+    </div>
+    <div>
+      <label>Categoria:</label>&nbsp;
+      <select [(ngModel)]="selectedBook.category" name="category" required>
+        <option value="Avventura">Avventura</option>
+        <option value="Saggio">Saggio</option>
+        <option value="Fantasy">Fantasy</option>
+      </select>
+    </div>
+    <div>
+      <label>Autore:</label>
+      <input
+        type="text"
+        [(ngModel)]="selectedBook.author"
+        name="author"
+        required
+      />
+    </div>
+    <div>
+      <label>Pagine:</label>
+      <input
+        type="number"
+        [(ngModel)]="selectedBook.pages"
+        name="pages"
+        min="0"
+        max="1500"
+        required
+      />
+    </div>
+    <div class="button">
+      <button class="modifica" type="submit">Modifica libro</button>
+      <button class="annulla" type="button" (click)="onCancel()">
+        Annulla
+      </button>
+    </div>
+  </form>
+
+  <form (submit)="addBook(newBook)">
+    <div>
+      <label>Id:</label>
+      <input type="number" [(ngModel)]="newBook.id" name="id" required />
+    </div>
+    <div>
+      <label>Titolo:</label>
+      <input type="text" [(ngModel)]="newBook.title" name="title" required />
+    </div>
+    <div>
+      <label>Categoria:</label>&nbsp;
+      <select [(ngModel)]="newBook.category" name="category" required>
+        <option value="Avventura">Avventura</option>
+        <option value="Saggio">Saggio</option>
+        <option value="Fantasy">Fantasy</option>
+      </select>
+    </div>
+    <div>
+      <label>Autore:</label>
+      <input type="text" [(ngModel)]="newBook.author" name="author" required />
+    </div>
+    <div>
+      <label>Pagine:</label>
+      <input
+        type="number"
+        [(ngModel)]="newBook.pages"
+        name="pages"
+        min="0"
+        max="1500"
+        required
+      />
+    </div>
+    <div class="button2">
+      <button class="aggiungi" type="submit">Aggiungi libro</button>
+    </div>
+  </form>
+</div>
+
+<section>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Titolo</th>
+        <th>Categoria</th>
+        <th>Autore</th>
+        <th>Pagine</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let book of books">
+        <td>{{ book.id }}</td>
+        <td>{{ book.title }}</td>
+        <td>{{ book.category }}</td>
+        <td>{{ book.author }}</td>
+        <td>{{ book.pages }}</td>
+        <td class="delete">
+          <button (click)="deleteBook(book.id)">Elimina</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>
