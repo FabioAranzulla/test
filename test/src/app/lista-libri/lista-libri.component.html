@@ -1,0 +1,161 @@
+<main>
+  <div class="cerca">
+    <label
+      >Cerca un libro: <input type="text" [(ngModel)]="termineRicerca"
+    /></label>
+    <button type="button" (click)="filtraLibri()">Cerca</button>
+  </div>
+  <div class="error" *ngIf="termineRicerca && libriFiltrati.length == 0">
+    <p>Il libro cercato non è presente nella lista.</p>
+  </div>
+
+  <div class="form">
+    <form class="first" [formGroup]="aggiungiForm" (ngSubmit)="aggiungiLibro()">
+      <h3>Aggiungi un libro</h3>
+      <div>
+        <label>Id: <input type="text" formControlName="id" /> </label>
+      </div>
+      <div>
+        <label> Titolo: <input type="text" formControlName="titolo" /> </label>
+      </div>
+      <div>
+        <label>
+          Categoria:
+          <select formControlName="categoria">
+            <option value="Avventura">Avventura</option>
+            <option value="Saggio">Saggio</option>
+            <option value="Fantasy">Fantasy</option>
+          </select>
+        </label>
+      </div>
+      <div>
+        <label> Autore: <input type="text" formControlName="autore" /> </label>
+      </div>
+      <div>
+        <label>
+          Numero di pagine:&nbsp;
+          <input type="number" formControlName="numeroPagine" />
+        </label>
+      </div>
+      <div class="selection">
+        <button class="aggiungi" type="submit">Aggiungi libro</button>
+        <button class="elimina" type="button" (click)="annullaModifica()">
+          Annulla
+        </button>
+      </div>
+    </form>
+
+    <div *ngIf="isEdit">
+      <form
+        class="second"
+        [formGroup]="modificaForm"
+        (ngSubmit)="modificaLibro()"
+      >
+        <h3>Modifica un libro</h3>
+        <div>
+          <label for="titolo"
+            >Id:
+            <input type="text" id="id" formControlName="id" readonly />
+          </label>
+        </div>
+        <div>
+          <label for="titolo"
+            >Titolo:
+            <input type="text" id="titolo" formControlName="titolo" />
+          </label>
+        </div>
+        <div>
+          <label for="categoria"
+            >Categoria:
+            <select formControlName="categoria">
+              <option value="Avventura">Avventura</option>
+              <option value="Saggio">Saggio</option>
+              <option value="Fantasy">Fantasy</option>
+            </select>
+          </label>
+        </div>
+        <div>
+          <label for="autore"
+            >Autore:
+            <input type="text" id="autore" formControlName="autore" />
+          </label>
+        </div>
+        <div>
+          <label for="numeroPagine"
+            >Numero Pagine:
+            <input
+              type="number"
+              id="numeroPagine"
+              formControlName="numeroPagine"
+            />
+          </label>
+        </div>
+        <div class="selection">
+          <button class="modifica" type="submit">Modifica libro</button>
+          <button class="elimina" type="button" (click)="annullaModifica()">
+            Annulla
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="table">
+    <table class="table1">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Titolo</th>
+          <th>Categoria</th>
+          <th>Autore</th>
+          <th>Numero di pagine</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let libro of libri">
+          <td>{{ libro.id }}</td>
+          <td>{{ libro.titolo }}</td>
+          <td>{{ libro.categoria }}</td>
+          <td>{{ libro.autore }}</td>
+          <td>{{ libro.numeroPagine }}</td>
+          <td>
+            <button class="modifica" (click)="selezionaLibro(libro)">
+              Modifica
+            </button>
+          </td>
+          <td>
+            <button class="elimina" (click)="eliminaLibro(libro.id)">
+              Elimina
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="table2" *ngIf="termineRicerca && !libroNonTrovato">
+      <caption>
+        TABELLA DI RICERCA
+      </caption>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Titolo</th>
+            <th>Categoria</th>
+            <th>Autore</th>
+            <th>Numero di pagine</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let libro of libriFiltrati">
+            <td>{{ libro.id }}</td>
+            <td>{{ libro.titolo }}</td>
+            <td>{{ libro.categoria }}</td>
+            <td>{{ libro.autore }}</td>
+            <td>{{ libro.numeroPagine }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>
